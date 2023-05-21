@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./Plug/Swiper/swiper.min.css">-->
+    <link rel="stylesheet" href="./Plug/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="./Plug/jquery-2.1.0.js"></script>
+    <!-- <script src="./Plug/Swiper/swiper.min.js"></script> -->
+    <style>
+        #show {
+            width: 80px;
+            height: 80px;
+        }
+        
+          #fix_load {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%);
+            padding: 6px;
+            border-radius: 4px;
+            background: white;
+            font-size: 14px;
+            z-index: 999;
+            display: none;
+        }
+    
+    </style>
+</head>
+
+<body class="container" >
+    <div id="fix_load">
+        请求中……
+    </div>
+    <h3>添加</h3>
+    <form action="" method="post" id="saveQuestionForm">
+        <label>
+            问题：
+            <input type="text" placeholder="问题" class="form-control" name="title" required>
+        </label>
+        <label>
+            问题内容：
+            <input type="text" placeholder="问题内容" class="form-control" name="content" required>
+
+        </label>
+        <label>
+            封面图：
+            <input type="file" name="img" required class="form-control" id="news_revise_file">
+            <img id="show" src="" alt="">
+        </label>
+        <button type="submit" id="saveQuestion" class="btn btn-success">提交</button>
+    </form>
+    <hr>
+    <h3>删除</h3>
+    <form action="" method="post" id="removeQuestionForm">
+        <label>
+            问题：
+            <input type="number" placeholder="要删除的id" class="form-control" name="id" required>
+        </label>
+        <button type="submit" id="removeQuestion" class="btn btn-success">提交</button>
+    </form>
+    <script>
+        $("#news_revise_file").change(function (e) {
+            e.preventDefault();
+            var file = $("#news_revise_file")[0].files[0]
+            var reader = new FileReader()
+            reader.readAsDataURL(file)
+            // 处理需要一些时间 所以之后的操作在onload 里写
+            reader.onload = () => {
+                let imgUrl = reader.result;
+                console.log($("#show"))
+                $("#show").attr('src', imgUrl);
+            }
+        });
+        $("#removeQuestion").click((e)=>{
+            $("#fix_load").show();
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/covid19-show/RemoveQuestion",
+                data: $("#removeQuestionForm").serialize(),
+                dataType: "json",
+                success: function (response) {
+                    if (response.code == 200) {
+                        $("#fix_load").html("修改成功");
+                        $("#fix_load").hide();
+                    } else {
+                        $("#fix_load").html("修改失败");
+                        $("#fix_load").hide();
+                    }
+                },
+                error: function () {
+                    $("#fix_load").html("修改失败");
+                    $("#fix_load").hide();
+                }
+            });
+        })
+        $("#saveQuestion").click((e) => {
+            $("#fix_load").show();
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/covid19-show/SaveQuestion",
+                processData: false,
+                contentType: false,
+                data: new FormData($("#saveQuestionForm")[0]),
+                dataType: "json",
+                success: function (response) {
+                    console.log(response.code)
+                    if (response.code == 200) {
+                        $("#fix_load").html("修改成功");
+                        $("#fix_load").hide();
+                    } else {
+                        $("#fix_load").html("修改失败");
+                        $("#fix_load").hide();
+                    }
+                },
+                error: function () {
+                    $("#fix_load").html("修改失败");
+                    $("#fix_load").hide();
+                }
+            });
+        })
+    </script>
+</body>
+
+
+</html>

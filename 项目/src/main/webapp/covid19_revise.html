@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./Plug/Swiper/swiper.min.css">
+    <link rel="stylesheet" href="./Plug/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="./Plug/jquery-2.1.0.js"></script>
+    <script src="./Plug/Swiper/swiper.min.js"></script>
+    <style>
+        .tabs {
+            padding: 10px 0 5px 0;
+        }
+
+        .tabs>a {
+            font-size: 14px;
+            color: black;
+            padding: 5px;
+        }
+
+        .tabs>.active {
+            background: skyblue;
+            color: white;
+            font-weight: bold;
+        }
+        #fix_load {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%);
+            padding: 6px;
+            border-radius: 4px;
+            background: white;
+            font-size: 14px;
+            z-index: 999;
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="container">
+    <div id="fix_load">
+        请求中……
+    </div>
+    <div class="tabs">
+        <a href="#" class="active">国外数据</a>
+        <a href="#" class="">国外数据</a>
+    </div>
+    <div class="covid_revise_con swiper-container swiper-container-initialized swiper-container-horizontal"
+        style="width:100%; height: auto;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div>
+                    <form action="" method="post" id="saveCovidDataForm">
+                        <h3>今日数据<small>(录入修改)</small></h3>
+                        <label>
+                            现存确诊
+                            <input type="number" name="nowSure" required class="form-control">
+                        </label>
+                        <label>
+                            现存境外输入
+                            <input type="number" name="nowAdd" required class="form-control">
+                        </label>
+                        <label>
+                            现存重症
+                            <input type="number" name="nowIcu" required class="form-control">
+                        </label>
+                        <label>
+                            新增确诊
+                            <input type="number" name="addSure" required class="form-control">
+                        </label>
+                        <label>
+                            新增死亡
+                            <input type="number" name="addDied" required class="form-control">
+                        </label>
+                        <label>
+                            新增治愈
+                            <input type="number" name="addSave" required class="form-control">
+                        </label>
+                        <button type="submit" id="saveCovidData" class="btn btn-success">
+                            提交
+                        </button>
+                    </form>
+
+
+                </div>
+                <hr>
+                <div>
+                    <button id="getChinaData" class="btn btn-success">获取现在流感数据（excel）</button>
+                    <hr>
+                    <form action="" id="postChinaDataForm">
+                        <h3>提交修改文件</h3>
+                        <input type="file" name="file" class="form-control" id="">
+                        <button type="submit" class="btn btn-success" id="postChinaData">提交</button>
+                    </form>
+                </div>
+                <hr>
+            </div>
+            <div class="swiper-slide">
+                <div>
+                    <form action="" method="post" id="saveFormCovidDataForm">
+                        <h3>明日数据<small>(录入修改)</small></h3>
+                        <label>
+                            现存确诊
+                            <input type="text" class="form-control" name="nowSure" required>
+                        </label>
+                        <label>
+                            新增确诊
+                            <input type="text" class="form-control" name="newAdd" required>
+                        </label>
+                        <label>
+                            新增死亡
+                            <input type="text" class="form-control" name="newDied" required>
+                        </label>
+                        <label>
+                            新增治愈
+                            <input type="text" class="form-control" name="newSave" required>
+                        </label>
+                        <button type="submit" id="saveFormCovidData" class="btn btn-success">
+                            提交
+                        </button>
+                    </form>
+                </div>
+
+                <hr>
+                <div>
+                    <h3>国际流感数据增，改</h3>
+                    <div>
+                        <button type="submit" id="getWorldData" class="btn btn-success">
+                            获取当前流感数据(excel)
+                        </button>
+                        <form action="" id="postWorldDataForm">
+                            <h3>提交修改文件</h3>
+                            <input type="file" name="file" class="form-control" id="">
+                            <button type="submit" class="btn btn-success" id="postWorldData">提交</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./Js/covid19_revise.js"></script>
+</body>
+
+</html>

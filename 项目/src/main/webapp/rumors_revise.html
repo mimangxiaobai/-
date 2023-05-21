@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./Plug/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="./Plug/jquery-2.1.0.js"></script>
+    <style>
+          #fix_load {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%);
+            padding: 6px;
+            border-radius: 4px;
+            background: white;
+            font-size: 14px;
+            z-index: 999;
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="container">
+    <div id="fix_load">
+        请求中……
+    </div>
+    <h3>谣言证明信息增加</h3>
+    <form action="" method="post" id="saveRomorForm">
+        <label>
+            辟谣内容
+            <input type="text" class="form-control" name="content" required>
+        </label>
+        <br>
+        <label>
+            是否是谣言
+            <input type="radio" name="isRumor" value="1" required> 是
+            <input type="radio" name="isRumor" value="0" required> 不是
+        </label>
+        <br>
+        <button type="submit" id="saveRomor" class="btn btn-success">提交</button>
+    </form>
+    <hr>
+    <h3>谣言证明信息删除</h3>
+    <form action="" method="post" id="removeRumorForm">
+        <label>
+            辟谣信息id
+            <input type="number" class="form-control" name="id" required>
+        </label>
+        <br>
+        <button type="submit" id="removeRumor" class="btn btn-success">提交</button>
+    </form>
+    <hr>
+    <h3>谣言证明信息修改</h3>
+    <form action="" method="post" id="updateRumorForm">
+        <label>
+            辟谣信息id
+            <input type="number" class="form-control" name="id" required>
+        </label>
+        <label>
+            辟谣内容
+            <input type="text" class="form-control" name="content" required>
+        </label>
+        <br>
+        <label>
+            是否是谣言
+            <input type="radio" name="isRumors" value="1" required> 是
+            <input type="radio" name="isRumors" value="0" required> 不是
+        </label>
+        <br>
+        <button type="submit" id="updateRumor" class="btn btn-success">提交</button>
+    </form>
+    <script>
+        $("#saveRomor").click((e) => {
+            $("#fix_load").show();
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/covid19-show/SaveRumorServlet",
+                data: $("#saveRomorForm").serialize(),
+                dataType: "json",
+                success: function (response) {
+                    if (response.code == 200) {
+                        $("#fix_load").html("修改成功");
+                        $("#fix_load").hide();
+                    } else {
+                        $("#fix_load").html("修改失败");
+                        $("#fix_load").hide();
+                    }
+                },
+                error: function () {
+                    $("#fix_load").html("修改失败");
+                    $("#fix_load").hide();
+                }
+            });
+        })
+        $("#removeRumor").click((e)=>{
+            $("#fix_load").show();
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/covid19-show/RemoveRumor",
+                data: $("#removeRumorForm").serialize(),
+                dataType: "json",
+                success: function (response) {
+                    if (response.code == 200) {
+                        $("#fix_load").html("删除成功");
+                        $("#fix_load").hide();
+                    } else {
+                        $("#fix_load").html("删除失败");
+                        $("#fix_load").hide();
+                    }
+                },
+                error: function () {
+                    $("#fix_load").html("删除失败");
+                    $("#fix_load").hide();
+                }
+            });
+        })
+        $("#updateRumor").click((e)=>{
+            $("#fix_load").show();
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/covid19-show/UpdateRumor",
+                data: $("#updateRumorForm").serialize(),
+                dataType: "json",
+                success: function (response) {
+                    if (response.code == 200) {
+                        $("#fix_load").html("删除成功");
+                        $("#fix_load").hide();
+                    } else {
+                        $("#fix_load").html("删除失败");
+                        $("#fix_load").hide();
+                    }
+                },
+                error: function () {
+                    $("#fix_load").html("删除失败");
+                    $("#fix_load").hide();
+                }
+            });
+        })
+
+    </script>
+</body>
+
+</html>

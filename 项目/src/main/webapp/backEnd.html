@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./Plug/jquery-2.1.0.js"></script>
+</head>
+<body>
+    <hr>
+    <h1>登录……</h1>
+    <hr>
+    <script>
+         $(() => {
+            var a;
+            a = window.open("./login.html", "open", "width=320,height=480")
+            var loop = setInterval(() => {
+                if (a.closed) {
+                    clearInterval(loop); //停止定时器
+                    $("h1").html("登录窗口关闭，如未成功登录，请刷新")
+                }
+            }, 1000);
+        })
+    </script>
+</body>
+</html>

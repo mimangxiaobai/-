@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="./Plug/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+	<!-- Loding font -->
+	<!--<link href="https://fonts.googleapis.com/css?family=Montserrat:300,700" rel="stylesheet">-->
+
+	<!-- Custom Styles -->
+	<link rel="stylesheet" type="text/css" href="./Css/login_styles.css">
+	<script src="./Plug/jquery-2.1.0.js"></script>
+	<title>Home</title>
+</head>
+
+<body>
+
+	<!-- Backgrounds -->
+
+	<div id="login-bg" class="container-fluid">
+
+		<div class="bg-img"></div>
+		<div class="bg-color"></div>
+	</div>
+
+	<!-- End Backgrounds -->
+
+	<div class="container" id="login">
+		<div class="row d-flex justify-content-center">
+			<div class="col-lg-8">
+				<div class="login">
+
+					<h1>Login</h1>
+
+					<!-- Loging form -->
+					<form id="loginForm" action="/src/main/webapp/index.html" method="POST">
+						<div class="form-group">
+							<input type="email" class="form-control" id="exampleInputEmail1" name="user" required
+								aria-describedby="emailHelp" placeholder="Enter email">
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" id="exampleInputPassword1" name="password"
+								required placeholder="Password">
+						</div>
+
+						<div class="form-check">
+
+							<label class="switch">
+								<input type="checkbox" name="setCookie">
+								<span class="slider round"></span>
+							</label>
+							<label class="form-check-label" for="exampleCheck1">Remember me</label>
+						</div>
+
+						<br>
+						<button type="submit" id="login1" class="btn btn-lg btn-block btn-success" >Sign in</button>
+					</form>
+					<!-- End Loging form -->
+				</div>
+			</div>
+		</div>
+
+<script>
+	$("#login1").click(function () {
+		event.preventDefault()
+		console.log("submit")
+		submit();
+	})
+	function submit() {
+		$.ajax({
+			type:"post",
+			url:"/covid19-show/AdminLogin",
+			data: $("#loginForm").serialize(),
+			success : function(data){
+				console.log(data)
+               if(data.code != 200){
+				   alert(data.message)
+			   }else{
+				   
+				   window.close();
+				   window.open("/covid19-show/model.html")
+			   }
+           },
+		   error:function (data){
+				console.log("error")	
+				console.log(data)
+     		},
+		})
+	}
+	
+</script>
+</body>
+
+</html>
